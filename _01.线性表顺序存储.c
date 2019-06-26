@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-06-25 23:10:17
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-06-26 15:43:37
+ * @LastEditTime: 2019-06-26 15:47:20
  */
 
 #include "stdio.h"
@@ -115,6 +115,10 @@ Status ListInert(SqList *L, ElemType e, int i)
     }
     L->data[i - 1] = e;
     L->length++;
+}
+
+Status ListDelete(SqList *L, int i, ElemType *e){
+    
 }
 
 int main()
