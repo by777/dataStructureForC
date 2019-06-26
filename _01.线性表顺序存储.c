@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-06-25 23:10:17
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-06-27 00:14:34
+ * @LastEditTime: 2019-06-27 00:16:32
  */
 
 #include "stdio.h"
@@ -77,7 +77,7 @@ Status GetElem(SqList L, ElemType *e, int i)
     {
         return ERROR;
     }
-    *e = L.data[i - 1]; // ���ص�i��Ԫ�أ��±�Ϊi -1
+    *e = L.data[i - 1]; // ?????i???????��??i -1
     return OK;
 }
 
@@ -88,7 +88,7 @@ int LocateElem(SqList L, ElemType e)
         return ERROR;
     }
     int i;
-    for (i = 0; i < L.length; i++) // ����Ϊ5���±�Ϊ0~4
+    for (i = 0; i < L.length; i++) // ?????5???��??0~4
     {
         if (L.data[i] == e)
         {
@@ -100,19 +100,19 @@ int LocateElem(SqList L, ElemType e)
 
 Status ListInert(SqList *L, ElemType e, int i)
 {
-    // �ڵ�i��λ��֮ǰ������Ԫ��e
-    // ��ʼ������L�����Ҳ���,��i<=length
+    // ???i??��?????????????e
+    // ?????????L?????????,??i<=length
     if (L->length == MAXSIZE || i < 1 || i > L->length + 1)
     {
 
         return ERROR;
     }
     int k;
-    // ������Ԫ��
+    // ?????????
     for (k = L->length - 1; k >= i - 1; k--)
     {
         L->data[k + 1] = L->data[k];
-        // �����һ��λ��?(length�±�)��ʼ�ƶ�
+        // ????????��???(length?��?)??????
     }
     L->data[i - 1] = e;
     L->length++;
@@ -191,4 +191,4 @@ int main()
     getchar();
 }
 
-// EOFΪctrl + z
+// EOF?ctrl + z
