@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-06-25 23:10:17
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-06-26 15:06:35
+ * @LastEditTime: 2019-06-26 15:43:37
  */
 
 #include "stdio.h"
@@ -26,21 +26,19 @@ Status visit(ElemType c)
     return OK;
 }
 
-
-
 typedef struct
 {
     ElemType data[MAXSIZE];
     int length;
 } SqList;
 
-Status ListTraverse(SqList L){
+Status ListTraverse(SqList L)
+{
     int i = 0;
-    for ( i = 0; i <= L.length -1; i++)
+    for (i = 0; i <= L.length - 1; i++)
     {
-       visit(L.data[i]);
+        visit(L.data[i]);
     }
-    
 }
 
 Status InitList(SqList *L)
@@ -78,7 +76,7 @@ Status GetElem(SqList L, ElemType *e, int i)
     {
         return ERROR;
     }
-    *e = L.data[i - 1]; // è¿”å›žç¬¬iä¸ªå…ƒç´ ï¼Œä¸‹æ ‡ä¸ºi -1
+    *e = L.data[i - 1]; // ·µ»ØµÚi¸öÔªËØ£¬ÏÂ±êÎªi -1
     return OK;
 }
 
@@ -89,7 +87,7 @@ int LocateElem(SqList L, ElemType e)
         return ERROR;
     }
     int i;
-    for (i = 0; i < L.length; i++) // é•¿åº¦ä¸º5ï¼Œä¸‹æ ‡ä¸º0~4
+    for (i = 0; i < L.length; i++) // ³¤¶ÈÎª5£¬ÏÂ±êÎª0~4
     {
         if (L.data[i] == e)
         {
@@ -101,42 +99,39 @@ int LocateElem(SqList L, ElemType e)
 
 Status ListInert(SqList *L, ElemType e, int i)
 {
-    // åœ¨ç¬¬iä¸ªä½ç½®ä¹‹å‰æ’å…¥æ–°å…ƒç´ e
-    // åˆå§‹æ¡ä»¶ï¼šLå­˜åœ¨ä¸”ä¸æ»¡,ä¸”i<=length
+    // ÔÚµÚi¸öÎ»ÖÃÖ®Ç°²åÈëÐÂÔªËØe
+    // ³õÊ¼Ìõ¼þ£ºL´æÔÚÇÒ²»Âú,ÇÒi<=length
     if (L->length == MAXSIZE || i < 1 || i > L->length + 1)
     {
-        
+
         return ERROR;
     }
     int k;
-    // æ’å…¥æ–°å…ƒç´ 
-    for (k = L->length - 1; k >= i -1; k--)
+    // ²åÈëÐÂÔªËØ
+    for (k = L->length - 1; k >= i - 1; k--)
     {
-        L ->data[k + 1] = L ->data[k];
-        // ä»Žæœ€åŽä¸€ä¸ªä½ç½®(lengthä¸‹æ ‡)å¼€å§‹ç§»åŠ¨
+        L->data[k + 1] = L->data[k];
+        // ´Ó×îºóÒ»¸öÎ»ÖÃ(lengthÏÂ±ê)¿ªÊ¼ÒÆ¶¯
     }
-    L ->data[i-1] = e;
-    L ->length ++;
+    L->data[i - 1] = e;
+    L->length++;
 }
 
-
-
-int main(){
+int main()
+{
     SqList L;
     int isInit = InitList(&L);
-    if (isInit)
+    int n;
+    int elem;
+    printf("¿ªÊ¼£¡");
+    for (int k = 1; k < 6; k++)
     {
-        for (int j = 0; j <= 5 ; j++)
-        {
-            int res = ListInert(&L,j,1);
-            
-        }
-        
+        ListInert(&L, k, 1);
     }
+
     ListTraverse(L);
     //ceshi12233
     getchar();
-
-
-    
 }
+
+// EOFÎªctrl + z
