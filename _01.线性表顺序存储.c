@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-06-25 23:10:17
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-06-26 00:10:55
+ * @LastEditTime: 2019-06-26 14:15:10
  */
 #define MAXSIZE 20
 #define OK 1
@@ -86,8 +86,9 @@ Status ListInert(SqList *L, ElemType e, int i){
     // 插入新元素
     for (k = L ->length -1; ;)
     {
-        /* code */
+        /* 测试提交 */
     }
+    
     
     
 }
