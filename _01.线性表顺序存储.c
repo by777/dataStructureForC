@@ -2,11 +2,10 @@
  * @Author: Xu Bai
  * @Date: 2019-06-25 23:10:17
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-06-26 15:47:20
+ * @LastEditTime: 2019-06-26 22:06:39
  */
 
 #include "stdio.h"
-
 #include "stdlib.h"
 #include "io.h"
 #include "math.h"
@@ -22,7 +21,7 @@ typedef int ElemType;
 
 Status visit(ElemType c)
 {
-    printf("%d", c);
+    printf("%d ", c);
     return OK;
 }
 
@@ -39,6 +38,8 @@ Status ListTraverse(SqList L)
     {
         visit(L.data[i]);
     }
+    printf("\n");
+    return OK;
 }
 
 Status InitList(SqList *L)
@@ -115,26 +116,78 @@ Status ListInert(SqList *L, ElemType e, int i)
     }
     L->data[i - 1] = e;
     L->length++;
+    return OK;
 }
 
-Status ListDelete(SqList *L, int i, ElemType *e){
-    
+Status ListDelete(SqList *L, int i, ElemType *e)
+{
+    if (L->length == 0)
+    {
+        return ERROR;
+    }
+    int k;
+    *e = L->data[i - 1];
+    for (k = i; k < L->length; k++)
+    {
+        L->data[k - 1] = L->data[k];
+    }
+    L->length--;
+    return OK;
+}
+
+Status unionL(SqList *La, SqList Lb)
+{
+    int La_length = La->length;
+    int Lb_length = Lb.length;
+    int flag = 0;
+    ElemType e;
+    int i;
+    for (i = 1; i < Lb.length; i++)
+    {
+        GetElem(Lb, &e, i);
+        if (!LocateElem(*La, e))
+        {
+            flag = ListInert(La, e, ++La_length);
+        }
+        if (!flag)
+        {
+            return ERROR;
+        }
+    }
+    return OK;
 }
 
 int main()
 {
     SqList L;
-    int isInit = InitList(&L);
+    SqList R;
+    InitList(&L);
+    InitList(&R);
+
     int n;
     int elem;
-    printf("¿ªÊ¼£¡");
+    printf("insert \n ");
     for (int k = 1; k < 6; k++)
     {
         ListInert(&L, k, 1);
+        ListInert(&R, k + 2, 1);
     }
 
     ListTraverse(L);
-    //ceshi12233
+    printf("delete \n");
+    ListDelete(&L, 1, &elem);
+    ListTraverse(L);
+    printf("union \n");
+    unionL(&L, R);
+    ListTraverse(L);
+    ClearList(&R);
+    if (ListEmpty(R))
+    {
+        printf("Empty! \n");
+    }
+
+    ListTraverse(R);
+
     getchar();
 }
 
