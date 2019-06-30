@@ -42,7 +42,5 @@
 When I wrote this,<br>
 only God and I understood what I was doing.<br>
 Now, only God knows.  
-<p align="right" >
-> 不要温顺地走进那良夜 ：-）
-</p>
+
 </font>
