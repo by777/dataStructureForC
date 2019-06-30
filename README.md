@@ -27,6 +27,7 @@
  
 -   `栈与队列`
     -   顺序栈的基本操作
+    -   共享栈
 
 
 -   To be continued...
@@ -41,5 +42,7 @@
 When I wrote this,<br>
 only God and I understood what I was doing.<br>
 Now, only God knows.  
-<p align="right" >不要温顺地走进那良夜 ：-）</p>
+<p align="right" >
+> 不要温顺地走进那良夜 ：-）
+</p>
 </font>
