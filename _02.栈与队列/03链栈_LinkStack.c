@@ -140,5 +140,6 @@ int main()
         printf("栈顶元素 e=%d 栈的长度为%d\n",e,StackLength(s));
         ClearStack(&s);
         printf("清空栈后，栈空否：%d(1:空 0:否)\n",StackEmpty(s));
+        getchar();
         return 0;
 }
