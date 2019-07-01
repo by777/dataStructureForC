@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-01 21:32:41
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-01 22:12:36
+ * @LastEditTime: 2019-07-01 22:24:11
  */
 #include "stdio.h"
 #include "stdlib.h"
@@ -58,6 +58,7 @@ Status ClearStack(LinkStack *S)
         free(q);
     }
     S->count = 0;
+    S->top = NULL; //debug
     return OK;
 }
 
