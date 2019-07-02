@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-02 22:06:31
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-02 22:32:59
+ * @LastEditTime: 2019-07-02 22:39:29
  */
 #include "stdlib.h"
 #include "io.h"
@@ -78,6 +78,7 @@ Status EnQueue(SqQueue *Q, ElemType e)
     if ((Q->rear + 1) % MAXSIZE == Q->front)
     {
         // ¶ÓÁÐÂú
+        printf("full!\n");
         return ERROR;
     }
     else
@@ -92,6 +93,7 @@ Status DeQueue(SqQueue *Q, ElemType *e)
 {
     if (Q->front == Q->rear)
     {
+        printf("Empty!\n");
         return ERROR;
     }
     *e = Q->data[Q->front];
@@ -111,23 +113,22 @@ Status QueueTraverse(SqQueue Q)
     return OK;
 }
 
-int main(){
+int main()
+{
     ElemType e;
     SqQueue q;
     InitQueue(&q);
-    int i ;
+    int i;
     printf("EnQueue!\n");
-    for ( i = 0; i < MAXSIZE; i++)
+    for (i = 0; i < MAXSIZE; i++)
     {
-        EnQueue(&q,i);
+        EnQueue(&q, i);
     }
-    
+
     QueueTraverse(q);
     printf("DeQueue!\n");
-    for ( i = 10; i < MAXSIZE; i++)
-    {
-        DeQueue(&q,&e);
-    }
+    DeQueue(&q, &e);
+
     QueueTraverse(q);
     CleatQueue(&q);
     if (QuequEmpty(q))
@@ -136,6 +137,4 @@ int main(){
     }
     getchar();
     return OK;
-    
-    
 }
