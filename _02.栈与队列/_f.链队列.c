@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-03 21:37:15
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-03 22:55:56
+ * @LastEditTime: 2019-07-03 23:00:13
  */
 
 #include "stdlib.h"
@@ -180,4 +180,5 @@ int main()
     DestroyQueue(&q);
     printf("Destroy: ,q.front=%u q.rear=%u\n", q.front, q.rear);
     getchar();
+    return OK;
 }
