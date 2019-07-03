@@ -1,3 +1,10 @@
+/*
+ * @Author: Xu Bai
+ * @Date: 2019-07-03 21:37:15
+ * @LastEditors: Xu Bai
+ * @LastEditTime: 2019-07-03 22:46:26
+ */
+
 #include "stdlib.h"
 #include "stdio.h"
 #include "io.h"
@@ -44,7 +51,7 @@ Status DestroyQueue(LinkQueue *Q)
 {
     while (Q->front)
     {
-        // Q->rearÃ»É¶ÓÃ¾ÍÄÃÀ´×÷ÎªÁÙÊ±±äÁ¿´æ´¢ºó¼Ì½Úµã
+        // Q->rearÃ»É¶ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½Ì½Úµï¿½
         Q->rear = Q->front->next;
         free(Q->front);
         Q->front = Q->rear;
@@ -54,7 +61,7 @@ Status DestroyQueue(LinkQueue *Q)
 
 Status ClearQueue(LinkQueue *Q)
 {
-    // ÓëÏú»ÙÏà±È±£ÁôÁËfront½áµã
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È±ï¿½ï¿½ï¿½ï¿½ï¿½frontï¿½ï¿½ï¿½
     QueuePtr p, q;
     Q->rear = Q->front;
     p = Q->front->next;
@@ -111,7 +118,7 @@ Status EnQueue(LinkQueue *Q, ElemType e)
     }
     p->data = e;
     p->next = NULL;
-    Q->rear->next = p; //Ìí¼Óµ½Á´Î²
+    Q->rear->next = p; //ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Î²
     Q->rear = p;
     return OK;
 }
@@ -127,8 +134,8 @@ Status DeQueue(LinkQueue *Q, ElemType *e)
     Q->front->next = p->next;
     if (Q->rear == p)
     {
-        // ÈôÁ´±í³ýÍ·½ÚµãÍâÖ»Ê£ÏÂÒ»¸öÔªËØÊ±£¬ÔòÐè½«rearÖ¸ÏòÍ·½Úµã
-        //Èô¶ÓÍ·¾ÍÊÇ¶ÓÎ²£¬ÔòÉ¾³ýºó½«rearÖ¸Ïòfront
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Úµï¿½ï¿½ï¿½Ö»Ê£ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½è½«rearÖ¸ï¿½ï¿½Í·ï¿½Úµï¿½
+        //ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ç¶ï¿½Î²ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½rearÖ¸ï¿½ï¿½front
         Q->rear = Q->front;
     }
     free(p);
@@ -161,17 +168,17 @@ int main()
     EnQueue(&q, -5);
     EnQueue(&q, 5);
     EnQueue(&q, 10);
-    printf("²åÈë3¸öÔªËØ(-5,5,10)ºó,¶ÓÁÐµÄ³¤¶ÈÎª%d\n", QueueLength(q));
+    printf("ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½Ôªï¿½ï¿½(-5,5,10)ï¿½ï¿½,ï¿½ï¿½ï¿½ÐµÄ³ï¿½ï¿½ï¿½Îª%d\n", QueueLength(q));
     QueueTraverse(q);
     i = GetHead(q, &e);
     if (i == OK)
-        printf("¶ÓÍ·ÔªËØÊÇ£º%d\n", e);
+        printf("ï¿½ï¿½Í·Ôªï¿½ï¿½ï¿½Ç£ï¿½%d\n", e);
     DeQueue(&q, &e);
-    printf("É¾³ýÁË¶ÓÍ·ÔªËØ%d\n", e);
+    printf("É¾ï¿½ï¿½ï¿½Ë¶ï¿½Í·Ôªï¿½ï¿½%d\n", e);
     QueueTraverse(q);
     ClearQueue(&q);
-    printf("Çå¿Õ¶ÓÁÐºó,q.front=%u q.rear=%u q.front->next=%u\n", q.front, q.rear, q.front->next);
+    printf("ï¿½ï¿½Õ¶ï¿½ï¿½Ðºï¿½,q.front=%u q.rear=%u q.front->next=%u\n", q.front, q.rear, q.front->next);
     DestroyQueue(&q);
-    printf("Ïú»Ù¶ÓÁÐºó,q.front=%u q.rear=%u\n", q.front, q.rear);
+    printf("ï¿½ï¿½ï¿½Ù¶ï¿½ï¿½Ðºï¿½,q.front=%u q.rear=%u\n", q.front, q.rear);
     getchar();
 }
