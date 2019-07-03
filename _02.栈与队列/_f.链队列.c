@@ -170,9 +170,8 @@ int main()
     printf("删除了队头元素%d\n", e);
     QueueTraverse(q);
     ClearQueue(&q);
-	printf("清空队列后,q.front=%u q.rear=%u q.front->next=%u\n",q.front,q.rear,q.front->next);
-	DestroyQueue(&q);
-	printf("销毁队列后,q.front=%u q.rear=%u\n",q.front, q.rear);
+    printf("清空队列后,q.front=%u q.rear=%u q.front->next=%u\n", q.front, q.rear, q.front->next);
+    DestroyQueue(&q);
+    printf("销毁队列后,q.front=%u q.rear=%u\n", q.front, q.rear);
     getchar();
-
 }
