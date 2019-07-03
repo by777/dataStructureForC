@@ -156,7 +156,7 @@ int main()
     if (i)
     {
         printf("inited! \n");
-        printf("ÊÇ·ñ¿Õ¶ÓÁÐ£¿", QueueEmpty(q));
+        printf("Empty? 1 or 0: %d\n", QueueEmpty(q));
     }
     EnQueue(&q, -5);
     EnQueue(&q, 5);
