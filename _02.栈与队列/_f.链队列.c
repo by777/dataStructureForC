@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-03 21:37:15
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-03 22:46:26
+ * @LastEditTime: 2019-07-03 22:55:56
  */
 
 #include "stdlib.h"
@@ -51,7 +51,7 @@ Status DestroyQueue(LinkQueue *Q)
 {
     while (Q->front)
     {
-        // Q->rearûɶ�þ�������Ϊ��ʱ�����洢��̽ڵ�
+        // Q->rear没啥用，作为临时变量存放front后继结点
         Q->rear = Q->front->next;
         free(Q->front);
         Q->front = Q->rear;
@@ -61,7 +61,7 @@ Status DestroyQueue(LinkQueue *Q)
 
 Status ClearQueue(LinkQueue *Q)
 {
-    // ��������ȱ�����front���
+    // 与clear区别在于保留front和rear
     QueuePtr p, q;
     Q->rear = Q->front;
     p = Q->front->next;
@@ -118,7 +118,7 @@ Status EnQueue(LinkQueue *Q, ElemType e)
     }
     p->data = e;
     p->next = NULL;
-    Q->rear->next = p; //���ӵ���β
+    Q->rear->next = p; // 把新节点p作为rear
     Q->rear = p;
     return OK;
 }
@@ -134,8 +134,7 @@ Status DeQueue(LinkQueue *Q, ElemType *e)
     Q->front->next = p->next;
     if (Q->rear == p)
     {
-        // ��������ͷ�ڵ���ֻʣ��һ��Ԫ��ʱ�����轫rearָ��ͷ�ڵ�
-        //����ͷ���Ƕ�β����ɾ����rearָ��front
+        // 当除了头节点只剩下一个元素时，需要把rear指向头节点
         Q->rear = Q->front;
     }
     free(p);
@@ -168,17 +167,17 @@ int main()
     EnQueue(&q, -5);
     EnQueue(&q, 5);
     EnQueue(&q, 10);
-    printf("����3��Ԫ��(-5,5,10)��,���еĳ���Ϊ%d\n", QueueLength(q));
+    printf("EnQueue(-5,5,10), Length=%d\n", QueueLength(q));
     QueueTraverse(q);
     i = GetHead(q, &e);
     if (i == OK)
-        printf("��ͷԪ���ǣ�%d\n", e);
+        printf("GetHead:%d\n", e);
     DeQueue(&q, &e);
-    printf("ɾ���˶�ͷԪ��%d\n", e);
+    printf("DeQueue:%d\n", e);
     QueueTraverse(q);
     ClearQueue(&q);
-    printf("��ն��к�,q.front=%u q.rear=%u q.front->next=%u\n", q.front, q.rear, q.front->next);
+    printf("Clear: q.front=%u q.rear=%u q.front->next=%u\n", q.front, q.rear, q.front->next);
     DestroyQueue(&q);
-    printf("���ٶ��к�,q.front=%u q.rear=%u\n", q.front, q.rear);
+    printf("Destroy: ,q.front=%u q.rear=%u\n", q.front, q.rear);
     getchar();
 }
