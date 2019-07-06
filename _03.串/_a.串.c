@@ -1,3 +1,10 @@
+/*
+ * @Author: Xu Bai
+ * @Date: 2019-07-06 22:20:08
+ * @LastEditors: Xu Bai
+ * @LastEditTime: 2019-07-06 23:50:11
+ */
+
 #include "string.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -36,7 +43,7 @@ Status StrAssign(String T, char *chars)
 
 Status StrCopy(String T, String S)
 {
-    // 注意此处并没有维护T[0]，存疑
+
     int i;
     for (i = 0; i <= S[0]; i++)
     {
@@ -94,8 +101,15 @@ Status Concat(String T, String S1, String S2)
         {
             T[i] = S1[i];
         }
+
+        /*
+        原代码：
         for (i = 1; i <= MAXSIZE - S1[0]; i++)
-        // i上界存疑
+        但i上界存疑
+        在if条件中已经判断不会越界，应该放心复制
+         */
+
+        for (i = 1; i <= S2[0]; i++)
         {
             T[S1[0] + i] = S2[i];
         }
@@ -118,7 +132,21 @@ Status Concat(String T, String S1, String S2)
     }
 }
 
-
+Status SubString(String Sub, String S, int pos, int len)
+{
+    // 用Sub返回串S的从第pos起长度为len的字串
+    int i;
+    if (pos < 1 || len < 0 || len > S[0] - pos + 1 || pos > S[0])
+    {
+        return ERROR;
+    }
+    for (i = 1; i <= len; i++)
+    {
+        Sub[i] = S[pos + i - 1];
+    }
+    Sub[0] = len;
+    return OK;
+}
 
 int main()
 {
