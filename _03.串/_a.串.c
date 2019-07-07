@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-06 22:20:08
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-07 23:58:05
+ * @LastEditTime: 2019-07-08 00:10:40
  */
 
 #include "string.h"
@@ -309,10 +309,34 @@ int main()
         printf("ERROR!\n");
         exit(0);
     }
-    StrPrint("s1=%s \n",s1);
-    StrCopy(s2,s1);
-    printf("copyed s2=%s \n",s2);
-
+    printf("s1= ");
+    StrPrint(s1);
+    StrCopy(s2, s1);
+    printf("s2= ");
+    StrPrint(s2);
+    StrAssign(s2, "-------");
+    printf("then, s2= ");
+    StrPrint(s2);
+    String t;
+    k = Concat(t, s1, s2);
+    if (k)
+    {
+        printf("concat completed: ");
+        StrPrint(t);
+    }
+    else
+    {
+        printf("cutted off:");
+        StrPrint(t);
+    }
+    int i = 2, j = 3;
+    k = SubString(s2, t, i, j);
+    printf("Substring: ");
+    StrPrint(s2);
+    StrDelete(t, 1, 2);
+    StrInsert(t, 1, s2);
+    Replace(s2, t, s1);
+    StrPrint(s2);
     getchar();
     return OK;
 }
