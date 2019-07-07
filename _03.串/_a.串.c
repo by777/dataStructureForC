@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-06 22:20:08
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-07 23:21:21
+ * @LastEditTime: 2019-07-07 23:58:05
  */
 
 #include "string.h"
@@ -210,27 +210,108 @@ int index2(String S, String T, int pos)
     return 0;
 }
 
+// 在串s的第pos个字符之前插入串T，完全插入则返回TRUE
+Status StrInsert(String S, int pos, String T)
+{
+    int i;
+    if (pos < 1 || pos > S[0] + 1)
+    {
+        return ERROR;
+    }
+    if (S[0] + T[0] <= MAXSIZE)
+    {
+        // 可以完全插入
+        for (i = S[0]; i >= pos; i--)
+        {
+            S[i + T[0]] = S[i];
+        }
+        for (i = pos; i < pos + T[0]; i++)
+        {
+            S[i] = T[i - pos + 1];
+        }
+        S[0] = S[0] + T[0];
+        return TRUE;
+    }
+    else
+    {
+        for (i = MAXSIZE; i <= pos; i--)
+        {
+            S[i] = S[i - T[0]]; // 从后往前
+        }
+        for (i = pos; i < pos + T[0]; i++)
+        {
+            S[i] = T[i - pos + 1];
+        }
+        S[0] = MAXSIZE;
+        return FALSE;
+    }
+}
 
+// 从串S中删除第pos个字符起长度为len的子串
+Status StrDelete(String S, int pos, int len)
+{
+    int i;
+    if (pos < 1 || pos > S[0] - len + 1 || len < 0)
+    {
+        return ERROR;
+    }
+    for (i = pos + len; i < S[0]; i++)
+    {
+        S[i - len] = S[i];
+    }
+    S[0] -= len;
+    return OK;
+}
 
-// Status Replace(String S,String T, String V){
-//     // 用V替换主串S中出现的所有与T相等的不重叠的子串
-//     int i =1;
-//     if(StrEmpty(T)){
-//         return ERROR;
-//     }
+// 用V替换主串S中出现的所有与T相等的不重叠的子串
+Status Replace(String S, String T, String V)
+{
 
-//     do{
-//         i=
-//     }
-// }
+    int i = 1;
+    if (StrEmpty(T))
+    {
+        return ERROR;
+    }
+
+    do
+    {
+        i = Index(S, T, i);
+        // i为从上一个i之后找到的子串T的位置
+        if (i)
+        {
+            // 串S中存在T
+            StrDelete(S, i, StrLength(T));
+            StrInsert(S, i, V);
+            i += StrLength(V);
+            //在插入的串V后继续查找串T
+        }
+    } while (i);
+    return OK;
+}
+
+void StrPrint(String T)
+{
+    int i;
+    for (i = 1; i <= T[0]; i++)
+    {
+        printf("%c ", T[i]);
+    }
+    printf("\n");
+}
 
 int main()
 {
-    char chars[] = "ABCD";
-    String T = " ";
-    StrAssign(T, chars);
-    printf("%s \n", T);
-    printf("%c", T[3]);
+    Status k;
+    String s1, s2;
+    k = StrAssign(s1, "bai_xu");
+    if (!k)
+    {
+        printf("ERROR!\n");
+        exit(0);
+    }
+    StrPrint("s1=%s \n",s1);
+    StrCopy(s2,s1);
+    printf("copyed s2=%s \n",s2);
 
     getchar();
     return OK;
