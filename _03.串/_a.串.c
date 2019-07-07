@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-06 22:20:08
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-06 23:50:11
+ * @LastEditTime: 2019-07-07 23:05:20
  */
 
 #include "string.h"
@@ -147,6 +147,50 @@ Status SubString(String Sub, String S, int pos, int len)
     Sub[0] = len;
     return OK;
 }
+
+int Index(String S, String T, int pos)
+{
+    // 返回子串T在主串S中第pos个字符之后的位置。若不存在，则返回0
+    //其中，T非空，1≤pos≤StrLength(S)
+    int i = pos;
+    // i用来主串S中当前位置的下标值，若pos不为1则从pos位置开始匹配
+    int j = 1;
+    // j用来子串T中当前位置下标值
+    while (i <= S[0] && j <= T[0])
+    {
+        if (S[i] == T[j])
+        {
+            ++i;
+            ++j;
+        }
+        else
+        {
+            //指针后退重新开始匹配
+            i = i - j + 2; // i退回上次匹配首位下一位
+            j = 1;         //j退回子串T的首位
+        }
+    }
+    if (j > T[0])
+    {
+        return i - T[0];
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// Status Replace(String S,String T, String V){
+//     // 用V替换主串S中出现的所有与T相等的不重叠的子串
+//     int i =1;
+//     if(StrEmpty(T)){
+//         return ERROR;
+//     }
+
+//     do{
+//         i=
+//     }
+// }
 
 int main()
 {
