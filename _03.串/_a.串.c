@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-06 22:20:08
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-07 23:05:20
+ * @LastEditTime: 2019-07-07 23:21:21
  */
 
 #include "string.h"
@@ -172,6 +172,7 @@ int Index(String S, String T, int pos)
     }
     if (j > T[0])
     {
+        //找到了匹配位置
         return i - T[0];
     }
     else
@@ -179,6 +180,37 @@ int Index(String S, String T, int pos)
         return 0;
     }
 }
+
+int index2(String S, String T, int pos)
+{
+    // T为非空串。若主串S中存在第pos个字符之后存在与T相等的子串
+    // 则返回第一个这样的子串在S中的位置，否则返回0
+    int n, m, i;
+    String sub;
+    if (pos > 0)
+    {
+        n = StrLength(S); //主串
+        m = StrLength(T); //子串
+        i = pos;
+        while (i <= n - m + 1)
+        {
+            SubString(sub, S, i, m);
+            //取子串中第i个位置长度与T相等的子串给sub
+            if (StrCompare(sub, T) != 0)
+            {
+                ++i;
+            }
+            else
+            {
+                // 两串相等
+                return i;
+            }
+        }
+    }
+    return 0;
+}
+
+
 
 // Status Replace(String S,String T, String V){
 //     // 用V替换主串S中出现的所有与T相等的不重叠的子串
