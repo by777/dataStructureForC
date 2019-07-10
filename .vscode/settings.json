@@ -1,6 +1,7 @@
 {
     "python.pythonPath": "C:\\ProgramData\\anaconda\\python.exe",
     "files.associations": {
-        "cstdio": "c"
+        "cstdio": "c",
+        "stdlib.h": "c"
     }
 }

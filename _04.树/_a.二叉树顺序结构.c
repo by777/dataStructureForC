@@ -2,11 +2,12 @@
  * @Author: Xu Bai
  * @Date: 2019-07-09 22:50:41
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-10 22:45:47
+ * @LastEditTime: 2019-07-10 23:12:44
  */
 #include "stdlib.h"
 #include "stdio.h"
 #include "io.h"
+#include "math.h"  
 
 #define OK 1
 #define ERROR 0
@@ -76,4 +77,36 @@ Status CreateBiTree(SqBiTree T)
 
 /*在顺序存储中，二者完全一样 */
 #define ClearBiTree InitBiTree
+
+Status BiTreeEmpty(SqBiTree T)
+{
+    if (T[0] == Nil)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
+int BiTreeDepth(SqBiTree T)
+{
+    int i, j = -1;
+    for (i = MAX_TREE_SIZE - 1; i >= 0; i--)
+    {
+        /*找到最后一个结点 */
+        if (T[i] != Nil)
+        {
+            break;
+        }
+    }
+    i++;
+    do
+    {
+        j++;
+    } while (i >= powl(2, j));
+    /*计算2的j次幂 */
+    return j;
+}
 
