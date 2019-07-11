@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-09 22:50:41
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-11 22:38:19
+ * @LastEditTime: 2019-07-11 22:44:11
  */
 #include "stdlib.h"
 #include "stdio.h"
@@ -125,7 +125,12 @@ Status Root(SqBiTree T, ElemType *e)
 }
 
 /*返回处于e位置（层，本层序号 ）的结点的值*/
-Status Value(SqBiTree T, Position p, ElemType e)
+Status Value(SqBiTree T,Position e){
+    return T[(int)powl(2,e.level-1)+e.order-2];
+}
+
+/*将处于位置e的结点赋新值value */
+Status Assign(SqBiTree T, Position p, ElemType e)
 {
     /*将层、本层序号转为矩阵的序号 */
     int i = (int)powl(2, p.level - 1) + p.order - 2;
@@ -142,3 +147,4 @@ Status Value(SqBiTree T, Position p, ElemType e)
     T[i] = e;
     return OK;
 }
+
