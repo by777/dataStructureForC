@@ -2,12 +2,12 @@
  * @Author: Xu Bai
  * @Date: 2019-07-09 22:50:41
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-10 23:12:44
+ * @LastEditTime: 2019-07-11 22:38:19
  */
 #include "stdlib.h"
 #include "stdio.h"
 #include "io.h"
-#include "math.h"  
+#include "math.h"
 
 #define OK 1
 #define ERROR 0
@@ -110,3 +110,35 @@ int BiTreeDepth(SqBiTree T)
     return j;
 }
 
+/*当T不空，用e返回T的根，返回OK；否则返回ERROR，e无定义 */
+Status Root(SqBiTree T, ElemType *e)
+{
+    if (BiTreeEmpty(T))
+    {
+        return ERROR;
+    }
+    else
+    {
+        *e = T[0];
+        return OK;
+    }
+}
+
+/*返回处于e位置（层，本层序号 ）的结点的值*/
+Status Value(SqBiTree T, Position p, ElemType e)
+{
+    /*将层、本层序号转为矩阵的序号 */
+    int i = (int)powl(2, p.level - 1) + p.order - 2;
+    /*给叶子赋非空值但双亲为空 */
+    if (e != Nil && T[(i + 1) / 2 - 1] == Nil)
+    {
+        return ERROR;
+    }
+    /*  给双亲赋空值但有叶子（不空） */
+    else if (e == Nil && (T[i * 2 + 1] != Nil || T[i * 2 + 2] != Nil))
+    {
+        return ERROR;
+    }
+    T[i] = e;
+    return OK;
+}
