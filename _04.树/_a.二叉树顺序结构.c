@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-09 22:50:41
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-12 22:42:15
+ * @LastEditTime: 2019-07-12 22:59:06
  */
 #include "stdlib.h"
 #include "stdio.h"
@@ -15,7 +15,7 @@
 #define FALSE 0
 #define MAXSIZE 100
 /*二叉树最大节点数 */
-#define MAX_TREE_SIZE
+#define MAX_TREE_SIZE 100
 
 typedef int Status;
 /*树结点的数据类型 */
@@ -54,7 +54,7 @@ Status InitBiTree(SqBiTree T)
 Status CreateBiTree(SqBiTree T)
 {
     int i = 0;
-    printf("请按层序输入结点的值（int），0表示空结点，999表结束。节点数：%d\n", MAX_TREE_SIZE);
+ 	printf("请按层序输入结点的值(整型)，0表示空结点，输999结束。结点数≤%d:\n",MAX_TREE_SIZE);
     while (i < 10)
     {
         T[i] = i + 1;
@@ -184,7 +184,7 @@ ElemType LeftChild(SqBiTree T, ElemType e)
     return Nil;
 }
 
-ElemType RightChild(SqBiTree T, TElemType e)
+ElemType RightChild(SqBiTree T, ElemType e)
 {
     int i;
     if (T[0] == Nil) /* 空树 */
@@ -215,7 +215,7 @@ ElemType LeftSibling(SqBiTree T, ElemType e)
 }
 
 /*返回e的右兄弟 */
-ElemType LeftSibling(SqBiTree T, ElemType e)
+ElemType RightSibling(SqBiTree T, ElemType e)
 {
     int i;
     if (T[0] == Nil)
@@ -298,3 +298,92 @@ Status PostOrderTraverse(SqBiTree T)
     return OK;
 }
 
+/*层序遍历 */
+void LevelOrderTraverse(SqBiTree T)
+{
+    int i = MAX_TREE_SIZE;
+    int j;
+    while (T[i] != Nil)
+    {
+        /* 找到最后一个非空的结点序号 */
+        i--;
+    }
+    for (j = 0; j <= i; j++)
+    {
+        /* 从根节点起，按层序遍历二叉树 */
+        if (T[j] != Nil)
+        {
+            visit(T[j]);
+        }
+    }
+    printf("\n");
+}
+
+/*逐层按本层序号输出二叉树 */
+void Print(SqBiTree T)
+{
+    int j, k;
+    Position p;
+    ElemType e;
+    for (j = 1; j <= BiTreeDepth(T); j++)
+    {
+        printf("第%d层：", j);
+        for (k = 1; k <= powl(2, j - 1); k++)
+        {
+            p.level = j;
+            p.order = k;
+            e = Value(T, p);
+            if (e != Nil)
+            {
+                printf("%d: %d", k, e);
+            }
+        }
+        printf("\n");
+    }
+}
+
+int main()
+{
+    Status i;
+    Position p;
+    ElemType e;
+    SqBiTree T;
+    InitBiTree(T);
+    CreateBiTree(T);
+    printf("建立二叉树后,树空否？%d(1:是 0:否) 树的深度=%d\n", BiTreeEmpty(T), BiTreeDepth(T));
+    i = Root(T, &e);
+    if (i)
+        printf("二叉树的根为：%d\n", e);
+    else
+        printf("树空，无根\n");
+    printf("层序遍历二叉树:\n");
+    LevelOrderTraverse(T);
+    printf("前序遍历二叉树:\n");
+    PreOrderTraverse(T);
+    printf("中序遍历二叉树:\n");
+    InOrderTraverse(T);
+    printf("后序遍历二叉树:\n");
+    PostOrderTraverse(T);
+    printf("修改结点的层号3本层序号2。");
+    p.level = 3;
+    p.order = 2;
+    e = Value(T, p);
+    printf("待修改结点的原值为%d请输入新值:50 ", e);
+    e = 50;
+    Assign(T, p, e);
+    printf("前序遍历二叉树:\n");
+    PreOrderTraverse(T);
+    printf("结点%d的双亲为%d,左右孩子分别为", e, Parent(T, e));
+    printf("%d,%d,左右兄弟分别为", LeftChild(T, e), RightChild(T, e));
+    printf("%d,%d\n", LeftSibling(T, e), RightSibling(T, e));
+    ClearBiTree(T);
+    printf("清除二叉树后,树空否？%d(1:是 0:否) 树的深度=%d\n", BiTreeEmpty(T), BiTreeDepth(T));
+    i = Root(T, &e);
+    if (i)
+        printf("二叉树的根为：%d\n", e);
+    else
+        printf("树空，无根\n");
+
+    getchar();
+    return OK;
+}
