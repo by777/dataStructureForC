@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-09 22:50:41
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-11 22:44:11
+ * @LastEditTime: 2019-07-12 22:42:15
  */
 #include "stdlib.h"
 #include "stdio.h"
@@ -125,8 +125,9 @@ Status Root(SqBiTree T, ElemType *e)
 }
 
 /*返回处于e位置（层，本层序号 ）的结点的值*/
-Status Value(SqBiTree T,Position e){
-    return T[(int)powl(2,e.level-1)+e.order-2];
+Status Value(SqBiTree T, Position e)
+{
+    return T[(int)powl(2, e.level - 1) + e.order - 2];
 }
 
 /*将处于位置e的结点赋新值value */
@@ -145,6 +146,155 @@ Status Assign(SqBiTree T, Position p, ElemType e)
         return ERROR;
     }
     T[i] = e;
+    return OK;
+}
+
+/*若e是T的非根结点，则返回它的双亲，否则返回“空” */
+ElemType Parent(SqBiTree T, ElemType e)
+{
+    int i;
+    if (T[0] == Nil)
+    {
+        return Nil;
+    }
+    for (i = 1; i <= MAX_TREE_SIZE - 1; i++)
+    {
+        if (T[i] == e)
+        {
+            return T[(i + 1) / 2 - 1];
+        }
+    }
+    return Nil;
+}
+
+ElemType LeftChild(SqBiTree T, ElemType e)
+{
+    int i;
+    if (T[0] == Nil)
+    {
+        return Nil;
+    }
+    for (i = 0; i <= MAX_TREE_SIZE - 1; i++)
+    {
+        if (T[i] == e)
+        {
+            return T[i * 2 + 1];
+        }
+    }
+    return Nil;
+}
+
+ElemType RightChild(SqBiTree T, TElemType e)
+{
+    int i;
+    if (T[0] == Nil) /* 空树 */
+        return Nil;
+    for (i = 0; i <= MAX_TREE_SIZE - 1; i++)
+        if (T[i] == e) /* 找到e */
+            return T[i * 2 + 2];
+    return Nil; /* 没找到e */
+}
+
+/*返回e的左兄弟 */
+ElemType LeftSibling(SqBiTree T, ElemType e)
+{
+    int i;
+    if (T[0] == Nil)
+    {
+        return Nil;
+    }
+    for (i = 1; i < MAX_TREE_SIZE; i++)
+    {
+        if (T[i] == e && i % 2 == 0)
+        {
+            /* 找到e且其序号为偶数（是右孩子） */
+            return T[i - 1];
+        }
+    }
+    return Nil;
+}
+
+/*返回e的右兄弟 */
+ElemType LeftSibling(SqBiTree T, ElemType e)
+{
+    int i;
+    if (T[0] == Nil)
+    {
+        return Nil;
+    }
+    for (i = 1; i < MAX_TREE_SIZE; i++)
+    {
+        if (T[i] == e && i % 2 == 1)
+        {
+            /* 找到e且其序号为偶数（是右孩子） */
+            return T[i + 1];
+        }
+    }
+    return Nil;
+}
+
+void PreTraverse(SqBiTree T, int e)
+{
+    visit(T[e]);
+    if (T[2 * e + 1] != Nil)
+    {
+        /* 左子树不空 */
+        PreTraverse(T, 2 * e + 1);
+    }
+    if (T[2 * e + 2] != Nil)
+    {
+        /* 左子树不空 */
+        PreTraverse(T, 2 * e + 2);
+    }
+}
+
+Status PreOrderTraverse(SqBiTree T)
+{
+    if (!BiTreeEmpty(T))
+    {
+        PreTraverse(T, 0);
+    }
+    printf("\n");
+    return OK;
+}
+
+void InTraverse(SqBiTree T, int e)
+{
+    if (T[2 * e + 1] != Nil)
+    {
+        InTraverse(T, 2 * e + 1);
+    }
+    visit(T[e]);
+    if (T[2 * e + 2] != Nil)
+    {
+        InTraverse(T, 2 * e + 2);
+    }
+}
+
+Status InOrderTraverse(SqBiTree T)
+{
+    if (!BiTreeEmpty(T)) /* 树不空 */
+        InTraverse(T, 0);
+    printf("\n");
+    return OK;
+}
+
+void PostTraverse(SqBiTree T, int e)
+{
+    if (T[2 * e + 1] != Nil) /* 左子树不空 */
+        PostTraverse(T, 2 * e + 1);
+    if (T[2 * e + 2] != Nil) /* 右子树不空 */
+        PostTraverse(T, 2 * e + 2);
+    visit(T[e]);
+}
+
+/* 初始条件: 二叉树T存在 */
+/* 操作结果: 后序遍历T。 */
+Status PostOrderTraverse(SqBiTree T)
+{
+    if (!BiTreeEmpty(T)) /* 树不空 */
+        PostTraverse(T, 0);
+    printf("\n");
     return OK;
 }
 
