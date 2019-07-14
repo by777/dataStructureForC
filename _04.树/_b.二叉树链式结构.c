@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-13 22:24:04
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-13 22:29:40
+ * @LastEditTime: 2019-07-14 22:51:14
  */
 #include "string.h"
 #include "stdio.h"
@@ -42,4 +42,63 @@ Status StrAssign(String T, char *chars)
 }
 /* ************************************************ */
 
+typedef char ElemType;
+/*字符型以空格为空 */
+ElemType Nil = ' ';
 
+Status visit(ElemType e)
+{
+    printf("%c ", e);
+    return OK;
+}
+
+typedef struct BiTNode
+{
+    ElemType data;
+    struct BiTNode *lchild, *rchild;
+
+} BiTNode, *BiTree;
+
+Status InitBiTree(BiTree *T)
+{
+    *T = NULL;
+    return OK;
+}
+
+void DestroyTree(BiTree *T)
+{
+    if (*T)
+    {
+        if ((*T)->lchild)
+        {
+            DestroyTree(&(*T)->lchild);
+        }
+        if ((*T)->rchild)
+        {
+            DestroyTree(&(*T)->rchild);
+        }
+        free(*T);
+        *T = NULL;
+    }
+}
+
+void CreateBiTree(BiTree *T)
+{
+    ElemType ch;
+    ch = str[index++];
+    if (ch == '#')
+    {
+        *T = NULL;
+    }
+    else
+    {
+        *T = (BiTree)malloc(sizeof(BiTNode));
+        if (!*T)
+        {
+            exit(-1);
+        }
+        (*T)->data = ch;
+        CreateBiTree(&(*T)->lchild);
+        CreateBiTree(&(*T)->rchild);
+    }
+}
