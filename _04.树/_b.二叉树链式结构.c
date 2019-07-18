@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-13 22:24:04
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-14 22:51:14
+ * @LastEditTime: 2019-07-18 21:31:33
  */
 #include "string.h"
 #include "stdio.h"
@@ -100,5 +100,17 @@ void CreateBiTree(BiTree *T)
         (*T)->data = ch;
         CreateBiTree(&(*T)->lchild);
         CreateBiTree(&(*T)->rchild);
+    }
+}
+
+Status BiTreeEmpty(BiTree T)
+{
+    if (T)
+    {
+        return FALSE;
+    }
+    else
+    {
+        return TRUE;
     }
 }
