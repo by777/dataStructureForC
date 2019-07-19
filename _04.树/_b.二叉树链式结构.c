@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-13 22:24:04
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-19 22:42:49
+ * @LastEditTime: 2019-07-19 22:49:14
  */
 #include "string.h"
 #include "stdio.h"
@@ -65,17 +65,17 @@ Status InitBiTree(BiTree *T)
     return OK;
 }
 
-void DestroyTree(BiTree *T)
+void DestroyBiTree(BiTree *T)
 {
     if (*T)
     {
         if ((*T)->lchild)
         {
-            DestroyTree(&(*T)->lchild);
+            DestroyBiTree(&(*T)->lchild);
         }
         if ((*T)->rchild)
         {
-            DestroyTree(&(*T)->rchild);
+            DestroyBiTree(&(*T)->rchild);
         }
         free(*T);
         *T = NULL;
