@@ -71,6 +71,8 @@ void DestroyBiTree(BiTree *T)
 	}
 }
 
+#define ClearBiTree DestroyBiTree
+
 /* 按前序输入二叉树中结点的值（一个字符） */
 /* #表示空树，构造二叉链表表示二叉树T。 */
 void CreateBiTree(BiTree *T)
@@ -103,7 +105,7 @@ Status BiTreeEmpty(BiTree T)
 		return TRUE;
 }
 
-#define ClearBiTree DestroyBiTree
+
 
 /* 初始条件: 二叉树T存在。操作结果: 返回T的深度 */
 int BiTreeDepth(BiTree T)

@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-13 22:24:04
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-18 21:31:33
+ * @LastEditTime: 2019-07-19 22:42:49
  */
 #include "string.h"
 #include "stdio.h"
@@ -82,6 +82,8 @@ void DestroyTree(BiTree *T)
     }
 }
 
+#define ClearBiTree DestroyBiTree
+
 void CreateBiTree(BiTree *T)
 {
     ElemType ch;
@@ -113,4 +115,117 @@ Status BiTreeEmpty(BiTree T)
     {
         return TRUE;
     }
+}
+
+int BiTreeDepth(BiTree T)
+{
+    int i, j;
+    if (!T)
+    {
+        return 0;
+    }
+    if (T->lchild)
+    {
+        i = BiTreeDepth(T->lchild);
+    }
+    else
+    {
+        i = 0;
+    }
+    if (T->rchild)
+    {
+        j = BiTreeDepth(T->rchild);
+    }
+    else
+    {
+        j = 0;
+    }
+    return i > j ? i + 1 : j + 1;
+}
+
+/*若T存在，返回T的根 */
+ElemType Root(BiTree T)
+{
+    if (BiTreeEmpty(T))
+    {
+        return Nil;
+    }
+    else
+    {
+        return T->data;
+    }
+}
+
+/*返回p所指结点的值 */
+ElemType Value(BiTree T)
+{
+    return T->data;
+}
+
+void Assign(BiTree p, ElemType value)
+{
+    p->data = value;
+}
+
+void PreOrderTraverse(BiTree T)
+{
+    if (T == NULL)
+    {
+        return;
+    }
+    printf("%c ", T->data);
+    PreOrderTraverse(T->lchild);
+    PreOrderTraverse(T->rchild);
+}
+
+void InOrderTraverse(BiTree T)
+{
+    if (T == NULL)
+    {
+        return;
+    }
+
+    InOrderTraverse(T->lchild);
+    printf("%c ", T->data);
+    InOrderTraverse(T->rchild);
+}
+
+void PostOrderTraverse(BiTree T)
+{
+    if (T == NULL)
+    {
+        return;
+    }
+
+    PostOrderTraverse(T->lchild);
+    PostOrderTraverse(T->rchild);
+    printf("%c ", T->data);
+}
+
+int main()
+{
+    int i;
+    BiTree T;
+    InitBiTree(&T);
+    ElemType e1;
+    StrAssign(str, "ABDH#K###E##CFI###G#J##");
+    CreateBiTree(&T);
+    printf("构造空二叉树后,树空否？%d(1:是 0:否) 树的深度=%d\n", BiTreeEmpty(T), BiTreeDepth(T));
+    e1 = Root(T);
+    printf("二叉树的根为: %c\n", e1);
+
+    printf("\n前序遍历二叉树:");
+    PreOrderTraverse(T);
+    printf("\n中序遍历二叉树:");
+    InOrderTraverse(T);
+    printf("\n后序遍历二叉树:");
+    PostOrderTraverse(T);
+    ClearBiTree(&T);
+    printf("\n清除二叉树后,树空否？%d(1:是 0:否) 树的深度=%d\n", BiTreeEmpty(T), BiTreeDepth(T));
+    i = Root(T);
+    if (!i)
+        printf("树空，无根\n");
+
+    getchar();
+    return OK;
 }
