@@ -2,12 +2,12 @@
  * @Author: Xu Bai
  * @Date: 2019-07-13 22:24:04
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-19 22:49:14
+ * @LastEditTime: 2019-07-23 22:51:03
  */
 #include "string.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "io.h"
+//#include "io.h"
 
 #define OK 1
 #define ERROR 0
@@ -44,7 +44,7 @@ Status StrAssign(String T, char *chars)
 
 typedef char ElemType;
 /*字符型以空格为空 */
-ElemType Nil = ' ';
+ElemType Nil = '#';
 
 Status visit(ElemType e)
 {
