@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-23 22:43:14
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-23 22:52:27
+ * @LastEditTime: 2019-07-24 02:24:35
  */
 #include "string.h"
 #include "stdio.h"
@@ -38,4 +38,25 @@ Status visit(ElemType e)
 {
     printf("%c ", e);
     return OK;
+}
+
+Status CreateBiThrTree(BiThrNode *T)
+{
+    ElemType h;
+    scanf("%c", &h);
+    if (h == Nil)
+    {
+        *T = NULL;
+    }
+    else
+    {
+        *T=(BiThrTree)malloc(sizeof(BiThrNode));
+        if (!*T)
+        {
+            exit(-1);
+        }
+        
+        
+    }
+    
 }
