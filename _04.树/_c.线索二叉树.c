@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-23 22:43:14
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-24 02:24:35
+ * @LastEditTime: 2019-07-25 20:55:15
  */
 #include "string.h"
 #include "stdio.h"
@@ -50,13 +50,23 @@ Status CreateBiThrTree(BiThrNode *T)
     }
     else
     {
-        *T=(BiThrTree)malloc(sizeof(BiThrNode));
+        *T = (BiThrTree)malloc(sizeof(BiThrNode));
         if (!*T)
         {
             exit(-1);
         }
-        
-        
+        (*T)->data = h;
+        CreateBiThrTree(&(*T)->lchild);
+        if ((*T)->lchild)
+        {
+            /* ÓĞ×óº¢×Ó */
+            (*T)->LTag = Link;
+        }
+        if ((*T)->rchild)
+        {
+            (*T)->RTag = Link;
+        }
     }
-    
+    return OK;
 }
+
