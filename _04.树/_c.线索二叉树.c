@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-23 22:43:14
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-25 20:55:15
+ * @LastEditTime: 2019-07-26 22:36:04
  */
 #include "string.h"
 #include "stdio.h"
@@ -70,3 +70,31 @@ Status CreateBiThrTree(BiThrNode *T)
     return OK;
 }
 
+/*全局变量，始终指向刚刚访问的结点 */
+BiThrTree pre;
+/*中序线索化 */
+void InThreading(BiThrTree p)
+{
+    if (p)
+    {
+        InThreading(p->lchild);
+        if (!p->lchild)
+        {
+            /*前驱线索 */
+            p->LTag = Thread;
+            /*左孩子指针指向前驱 */
+            p->lchild = pre;
+        }
+        if (!pre->rchild)
+        {
+            /* 前驱没有右孩子 */
+            /*后继线索 */
+            pre->RTag = Thread;
+            /*前驱右孩子指向后继（当前结点p） */
+            pre->rchild = p;
+        }
+        /*保持pre指向p的前驱 */
+        pre = p;
+        InThreading(p->rchild);
+    }
+}
