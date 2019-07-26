@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-23 22:43:14
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-26 22:36:04
+ * @LastEditTime: 2019-07-26 22:43:54
  */
 #include "string.h"
 #include "stdio.h"
@@ -97,4 +97,35 @@ void InThreading(BiThrTree p)
         pre = p;
         InThreading(p->rchild);
     }
+}
+
+/*中序遍历二叉树，并将其中序线索化，Thrt指向头节点 */
+Status InOrderThreading(BiThrTree *Thrt, BiThrTree T)
+{
+    *Thrt = (BiThrTree)malloc(sizeof(BiThrNode));
+    if (!*Thrt)
+    {
+        exit(-1);
+    }
+    /*建头节点 */
+    (*Thrt)->LTag = Link;
+    (*Thrt)->RTag = Thread;
+    /*右指针回指 */
+    (*Thrt)->rchild = (*Thrt);
+    if (!T)
+    {
+        /* 若二叉树空，左指针回指 */
+        (*Thrt)->lchild = *Thrt;
+    }
+    else
+    {
+        (*Thrt)->lchild = T;
+        pre = (*Thrt);
+        InThreading(T);
+        pre->rchild = *Thrt;
+        /*最后一个结点线索化 */
+        pre->RTag = Thread;
+        (*Thrt)->rchild = pre;
+    }
+    return OK;
 }
