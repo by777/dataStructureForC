@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-23 22:43:14
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-26 22:43:54
+ * @LastEditTime: 2019-07-27 23:26:33
  */
 #include "string.h"
 #include "stdio.h"
@@ -127,5 +127,47 @@ Status InOrderThreading(BiThrTree *Thrt, BiThrTree T)
         pre->RTag = Thread;
         (*Thrt)->rchild = pre;
     }
+    return OK;
+}
+
+/*中序非递归遍历线索二叉树 */
+Status InOrderTraverse_Thr(BiThrTree T)
+{
+    BiThrTree p;
+    /*p指向根节点 */
+    p = T->lchild;
+    while (p != T)
+    {
+        /* 空树或遍历结束时，p==T */
+        while (p->LTag == Link)
+        {
+            p = p->lchild;
+        }
+        if (!visit(p->data))
+        {
+            /*访问其左子树为空的结点 */
+            return ERROR;
+        }
+        while (p->RTag == Thread && p->rchid != T)
+        {
+            p = p->rchild;
+            visit(p->data);
+        }
+        p = p->rchild;
+    }
+    return OK;
+}
+
+int main()
+{
+
+    BiThrTree H, T;
+    printf("请按前序输入二叉树(如:'ABDH##I##EJ###CF##G##')\n");
+    CreateBiThrTree(&T);     /* 按前序产生二叉树 */
+    InOrderThreading(&H, T); /* 中序遍历,并中序线索化二叉树 */
+    printf("中序遍历(输出)二叉线索树:\n");
+    InOrderTraverse_Thr(H); /* 中序遍历(输出)二叉线索树 */
+    printf("\n");
+    getchar();
     return OK;
 }
