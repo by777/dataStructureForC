@@ -2,7 +2,7 @@
  * @Author: Xu Bai
  * @Date: 2019-07-23 22:43:14
  * @LastEditors: Xu Bai
- * @LastEditTime: 2019-07-27 23:26:33
+ * @LastEditTime: 2019-07-27 23:35:31
  */
 #include "string.h"
 #include "stdio.h"
@@ -40,7 +40,7 @@ Status visit(ElemType e)
     return OK;
 }
 
-Status CreateBiThrTree(BiThrNode *T)
+Status CreateBiThrTree(BiThrTree *T)
 {
     ElemType h;
     scanf("%c", &h);
@@ -148,7 +148,7 @@ Status InOrderTraverse_Thr(BiThrTree T)
             /*访问其左子树为空的结点 */
             return ERROR;
         }
-        while (p->RTag == Thread && p->rchid != T)
+        while (p->RTag == Thread && p->rchild != T)
         {
             p = p->rchild;
             visit(p->data);
@@ -162,7 +162,7 @@ int main()
 {
 
     BiThrTree H, T;
-    printf("请按前序输入二叉树(如:'ABDH##I##EJ###CF##G##')\n");
+    printf(":'ABDH##I##EJ###CF##G##')\n");
     CreateBiThrTree(&T);     /* 按前序产生二叉树 */
     InOrderThreading(&H, T); /* 中序遍历,并中序线索化二叉树 */
     printf("中序遍历(输出)二叉线索树:\n");
